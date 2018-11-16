@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2018.
+  -->
+
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            [ %d{yyyy-MM-dd HH:mm:ss.SSS} ] [ %p ] [ %X{sid} ] %msg%n
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}"/>
+        </Console>
+		<RollingFile name="FileAppender" fileName="../log/login-automatico-admin.log"
+			filePattern="logs/login-automatico-admin-%d{yyyy-MM}-%i.log">
+			<PatternLayout>
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+    </Appenders>
+    <Loggers>
+		<AsyncLogger name="com.claro.loginautomaticocvideo" level="debug" includeLocation="true">
+			<AppenderRef ref="FileAppender" />
+		</AsyncLogger>
+	</Loggers>
+</Configuration>
